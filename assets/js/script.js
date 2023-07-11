@@ -10,28 +10,30 @@ $(function () {
     localStorage.setItem(hourId, input);
   })
 
-  // Apply the past, present, or future class to each time block by comparing the id to the current hour.
   var hourContainer = $('#hourContainer').children()
   
-  for (i = 0; i < hourContainer.length; i++) {
-    var hourIdName = hourContainer[i].getAttribute('id');
-    var hourNumber = hourIdName.slice(5);
+  function init () {
+    for (i = 0; i < hourContainer.length; i++) {
+      var hourIdName = hourContainer[i].getAttribute('id');
+      var hourNumber = hourIdName.slice(5);
 
-    if(hourNumber === dayjs().format('H')) {
-      $('#' + hourIdName).addClass("present");
-    } else if (hourNumber > dayjs().format('H')) {
-      $('#' + hourIdName).addClass("future");
-    } else {
-      $('#' + hourIdName).addClass("past");
+      // get any user input that was saved in localStorage and set the values of the corresponding textarea elements
+      var blockText = $('#' + hourIdName).children('textarea');
+      $(blockText).text(localStorage.getItem(hourIdName));
+      
+      // Apply the past, present, or future class to each time block by comparing the id to the current hour.
+      if(hourNumber === dayjs().format('H')) {
+        $('#' + hourIdName).addClass("present");
+      } else if (hourNumber > dayjs().format('H')) {
+        $('#' + hourIdName).addClass("future");
+      } else {
+        $('#' + hourIdName).addClass("past");
+      }
     }
   }
 
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
+  init ();
   
-
   // Display the current date in the header of the page.
   setInterval(function() {
     var date = dayjs().format('MMMM D, YYYY');
