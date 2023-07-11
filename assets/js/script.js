@@ -1,7 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
 $(function () {
   // When save button clicked, the content is saved in local storage using the hour's id 
   $('.saveBtn').on("click", function (event){
@@ -11,7 +7,7 @@ $(function () {
   })
 
   var hourContainer = $('#hourContainer').children()
-  
+
   function init () {
     for (i = 0; i < hourContainer.length; i++) {
       var hourIdName = hourContainer[i].getAttribute('id');
